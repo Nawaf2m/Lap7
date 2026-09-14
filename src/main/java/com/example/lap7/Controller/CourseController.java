@@ -63,6 +63,10 @@ public class CourseController {
 
     @GetMapping("/category/{category}")
     public ResponseEntity<?> getCoursesByCategory(@PathVariable String category) {
+        //update
+        if (!(category.equals("Programming") || category.equals("Math") || category.equals("Science"))){
+            return ResponseEntity.status(400).body(new ApiResponse("Category must be Programming, Math, or Science"));
+        }
         ArrayList<Course> courses = courseService.getCoursesByCategory(category);
         if (courses.isEmpty()) {
             return ResponseEntity.status(400).body(new ApiResponse("No courses found with this category"));
